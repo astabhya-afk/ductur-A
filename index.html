@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Doctor AI – Wound first aid guide</title>
+<meta name="description" content="Choose your wound type and get step-by-step first aid, aftercare and nearby hospitals and medical shops.">
+<meta property="og:title" content="Doctor AI">
+<meta property="og:description" content="Wound first aid and aftercare, with nearby hospitals and medical shops.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230E8F8A'/%3E%3Cpath d='M26 12h12v14h14v12H38v14H26V38H12V26h14z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sos">
+  <div class="wrap">
+    <strong>Emergency?</strong>
+    <span>Call <a href="tel:112">112</a> (all emergencies) or <a href="tel:108">108</a> (ambulance, India) now.</span>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="brand">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#0E8F8A"/><path d="M26 12h12v14h14v12H38v14H26V38H12V26h14z" fill="#fff"/></svg>
+        Doctor AI
+      </div>
+      <h1>Know what to do for a wound, right now.</h1>
+      <p>Pick the kind of wound you have. Get clear first aid steps, aftercare for the next few days, and the signs that mean you need a doctor.</p>
+      <a class="btn main" href="#guide">Check my wound</a>
+      <a class="btn ghost" href="#nearby">Find hospitals</a>
+    </div>
+
+    <!-- Thumbnail (inline SVG, no image file needed) -->
+    <svg class="thumb" viewBox="0 0 400 320" role="img" aria-label="Doctor AI thumbnail: a hand being scanned with a medical cross">
+      <rect width="400" height="320" rx="18" fill="#1B3A55"/>
+      <circle cx="200" cy="160" r="112" fill="#0E8F8A" opacity=".18"/>
+      <circle cx="200" cy="160" r="78" fill="#0E8F8A" opacity=".28"/>
+      <path d="M150 250c-8-40-10-82 8-112 6-10 20-6 18 6l-2 22 8-70c1-12 18-12 18 0l1 52 8-60c1-12 18-11 18 1l-1 62 10-48c3-11 19-8 17 4l-10 70c-4 24 4 40 8 52z" fill="#F3CDB5"/>
+      <rect x="168" y="150" width="68" height="26" rx="13" transform="rotate(-20 202 163)" fill="#F1E3D3" stroke="#C9B49C" stroke-width="2"/>
+      <rect x="192" y="156" width="20" height="14" rx="3" transform="rotate(-20 202 163)" fill="#E9C9C9"/>
+      <g fill="none" stroke="#7FE3DD" stroke-width="5" stroke-linecap="round">
+        <path d="M64 96V70a8 8 0 018-8h26"/><path d="M336 96V70a8 8 0 00-8-8h-26"/>
+        <path d="M64 224v26a8 8 0 008 8h26"/><path d="M336 224v26a8 8 0 01-8 8h-26"/>
+      </g>
+      <line x1="76" y1="160" x2="324" y2="160" stroke="#7FE3DD" stroke-width="3" stroke-dasharray="8 8"/>
+      <g transform="translate(300 40)"><rect width="56" height="56" rx="14" fill="#fff"/><path d="M22 10h12v12h12v12H34v12H22V34H10V22h12z" fill="#C62833"/></g>
+      <text x="200" y="300" text-anchor="middle" font-family="Atkinson Hyperlegible, sans-serif" font-weight="700" font-size="20" fill="#fff">Doctor AI</text>
+    </svg>
+  </div>
+</header>
+
+<main>
+  <div class="wrap scan">
+    <div class="card">
+      <div>
+        <h2>Scan your wound</h2>
+        <p class="lead">Take a clear, well-lit photo of the wound.</p>
+        <div class="drop">
+          <label for="photo"><strong>Choose or take a photo</strong></label>
+          <input id="photo" type="file" accept="image/*" capture="environment">
+        </div>
+        <img id="preview" class="preview" alt="Your wound photo">
+        <textarea id="desc" placeholder="Optional: how did it happen, how long ago, any pain, fever, or health conditions?" aria-label="Describe the injury"></textarea>
+        <button id="go" class="btn main" disabled>Analyse wound</button>
+        <p id="status" role="status"></p>
+      </div>
+      <div>
+        <h2>Before you start</h2>
+        <ul class="kit">
+          <li>Heavy bleeding, deep wound, or you feel faint: call 112 first.</li>
+          <li>Never put toothpaste, turmeric, coffee, or oil on a wound.</li>
+          <li>The AI result is a first aid guide from a photo. It is not a diagnosis.</li>
+        </ul>
+      </div>
+    </div>
+    <div id="result" class="card" aria-live="polite"></div>
+  </div>
+
+  <section id="guide">
+    <div class="wrap">
+      <h2>Prefer to choose yourself?</h2>
+      <p class="lead">Select the closest wound type for a standard guide.</p>
+
+      <input class="pick" type="radio" name="wound" id="w1" checked>
+      <input class="pick" type="radio" name="wound" id="w2">
+      <input class="pick" type="radio" name="wound" id="w3">
+      <input class="pick" type="radio" name="wound" id="w4">
+      <input class="pick" type="radio" name="wound" id="w5">
+      <input class="pick" type="radio" name="wound" id="w6">
+
+      <div class="tabs">
+        <label for="w1">Cut</label>
+        <label for="w2">Scrape</label>
+        <label for="w3">Puncture</label>
+        <label for="w4">Burn</label>
+        <label for="w5">Bruise or swelling</label>
+        <label for="w6">Animal bite</label>
+      </div>
+
+      <div class="panels card">
+
+        <article class="panel" id="p1">
+          <h3>Cut</h3>
+          <p>A clean break in the skin with straight edges.</p>
+          <div class="cols">
+            <div>
+              <h4>What to do now</h4>
+              <ol>
+                <li>Press a clean cloth firmly on the cut for 10 minutes. Do not keep lifting it to check.</li>
+                <li>Raise the injured part above heart level.</li>
+                <li>Rinse with clean running water for 5 minutes. Remove dirt gently.</li>
+                <li>Cover with a sterile bandage or gauze.</li>
+              </ol>
+            </div>
+            <div>
+              <h4>Care for the next days</h4>
+              <ul>
+                <li>Change the dressing daily, or when wet or dirty.</li>
+                <li>Keep it clean and dry for the first day, then wash gently with mild soap.</li>
+                <li>Apply a thin layer of antibiotic ointment if you wish.</li>
+                <li>Check that your tetanus shot is within 10 years.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="warn"><h4>See a doctor if</h4>
+            <ul><li>Bleeding does not stop after 10 minutes of pressure.</li><li>The cut is deep, gaping, or longer than 1 cm on the face.</li><li>You see redness spreading, pus, swelling, or have fever.</li></ul></div>
+          <div class="shop"><strong>Buy at a medical shop:</strong> sterile gauze, adhesive bandages, antiseptic solution, antibiotic ointment.</div>
+        </article>
+
+        <article class="panel" id="p2">
+          <h3>Scrape</h3>
+          <p>Skin rubbed off, often from a fall. Surface looks raw and may ooze.</p>
+          <div class="cols">
+            <div>
+              <h4>What to do now</h4>
+              <ol>
+                <li>Rinse well under clean running water to remove grit.</li>
+                <li>Clean the skin around it with mild soap. Keep soap out of the wound.</li>
+                <li>Pat dry with clean gauze.</li>
+                <li>Cover with a non-stick dressing.</li>
+              </ol>
+            </div>
+            <div>
+              <h4>Care for the next days</h4>
+              <ul>
+                <li>Change the dressing daily and keep the area moist with ointment.</li>
+                <li>Do not pick the scab.</li>
+                <li>Protect healed skin from sun for a few weeks.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="warn"><h4>See a doctor if</h4>
+            <ul><li>Dirt or gravel stays in the wound after cleaning.</li><li>The area is large, or very painful.</li><li>You notice pus, warmth, or red streaks.</li></ul></div>
+          <div class="shop"><strong>Buy at a medical shop:</strong> non-stick dressings, saline wash, antibiotic ointment, medical tape.</div>
+        </article>
+
+        <article class="panel" id="p3">
+          <h3>Puncture</h3>
+          <p>A hole from a nail, needle, or sharp point. Often looks small but can be deep.</p>
+          <div class="cols">
+            <div>
+              <h4>What to do now</h4>
+              <ol>
+                <li>Let it bleed a little. Then stop bleeding with gentle pressure.</li>
+                <li>Rinse with clean running water for 5 minutes.</li>
+                <li>Do not remove a deeply embedded object. Stabilise it and go to hospital.</li>
+                <li>Cover with a clean bandage.</li>
+              </ol>
+            </div>
+            <div>
+              <h4>Care for the next days</h4>
+              <ul>
+                <li>Change the dressing daily.</li>
+                <li>Watch closely for infection for several days.</li>
+                <li>Ask about a tetanus shot, especially for rusty or dirty objects.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="warn"><h4>See a doctor today</h4>
+            <ul><li>Almost all punctures benefit from a check for tetanus risk.</li><li>Object is stuck, wound is deep, or it is on the foot, chest, or belly.</li><li>Swelling, throbbing pain, pus, or fever.</li></ul></div>
+          <div class="shop"><strong>Buy at a medical shop:</strong> gauze, antiseptic, bandages. A tetanus shot needs a clinic.</div>
+        </article>
+
+        <article class="panel" id="p4">
+          <h3>Burn</h3>
+          <p>Skin hurt by heat, hot liquid, fire, or chemicals.</p>
+          <div class="cols">
+            <div>
+              <h4>What to do now</h4>
+              <ol>
+                <li>Cool under cool (not ice-cold) running water for 20 minutes.</li>
+                <li>Remove rings and tight items before swelling starts. Do not pull off stuck clothing.</li>
+                <li>Cover loosely with clean cling film or a non-stick dressing.</li>
+                <li>Do not pop blisters. Do not use ice, butter, or toothpaste.</li>
+              </ol>
+            </div>
+            <div>
+              <h4>Care for the next days</h4>
+              <ul>
+                <li>Change the dressing daily and keep it clean.</li>
+                <li>Use paracetamol for pain if you can safely take it.</li>
+                <li>Keep healed skin out of the sun.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="warn"><h4>Go to hospital if</h4>
+            <ul><li>The burn is bigger than your palm, or on the face, hands, feet, joints, or genitals.</li><li>Skin is white, leathery, or charred.</li><li>It is a chemical or electrical burn, or the person is a child or elderly.</li></ul></div>
+          <div class="shop"><strong>Buy at a medical shop:</strong> burn dressings, sterile non-stick pads, paracetamol.</div>
+        </article>
+
+        <article class="panel" id="p5">
+          <h3>Bruise or swelling</h3>
+          <p>Skin intact but sore, discoloured, or swollen after a knock.</p>
+          <div class="cols">
+            <div>
+              <h4>What to do now</h4>
+              <ol>
+                <li>Rest the area.</li>
+                <li>Apply a cold pack wrapped in cloth for 15 minutes, every few hours.</li>
+                <li>Use a snug elastic bandage, not tight.</li>
+                <li>Raise the area above heart level.</li>
+              </ol>
+            </div>
+            <div>
+              <h4>Care for the next days</h4>
+              <ul>
+                <li>After 2 days, a warm compress can ease stiffness.</li>
+                <li>Most bruises fade in 1 to 2 weeks.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="warn"><h4>See a doctor if</h4>
+            <ul><li>You cannot move or put weight on the area, or it looks bent.</li><li>Severe pain, numbness, or the swelling keeps growing.</li><li>It followed a head injury.</li></ul></div>
+          <div class="shop"><strong>Buy at a medical shop:</strong> cold pack, elastic bandage, paracetamol.</div>
+        </article>
+
+        <article class="panel" id="p6">
+          <h3>Animal bite</h3>
+          <p>Bite or scratch from a dog, cat, monkey, or another animal.</p>
+          <div class="cols">
+            <div>
+              <h4>What to do now</h4>
+              <ol>
+                <li>Wash the wound with soap and running water for at least 15 minutes.</li>
+                <li>Apply an antiseptic such as povidone-iodine.</li>
+                <li>Cover loosely. Do not stitch or tightly close it.</li>
+                <li>Go to a hospital the same day.</li>
+              </ol>
+            </div>
+            <div>
+              <h4>Why the same day</h4>
+              <ul>
+                <li>Rabies vaccine, and sometimes immunoglobulin, must start quickly.</li>
+                <li>You may also need a tetanus shot and antibiotics.</li>
+                <li>Note the animal's type and behaviour, and whether it is vaccinated.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="warn"><h4>Do not wait</h4>
+            <ul><li>Every bite from an unknown or unvaccinated animal needs medical review, even if it looks small.</li><li>Bites on the face, hands, or neck are urgent.</li></ul></div>
+          <div class="shop"><strong>Buy at a medical shop:</strong> soap, povidone-iodine, gauze. Vaccines are given at hospitals.</div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="nearby">
+    <div class="wrap">
+      <h2>Find help near you</h2>
+      <p class="lead">These links open Google Maps using your phone's location.</p>
+      <div class="near">
+        <div class="card">
+          <h3 style="margin:0">Hospitals</h3>
+          <p style="margin:0">Open now, nearest first, with directions and phone numbers.</p>
+          <a class="btn" href="https://www.google.com/maps/search/hospitals+near+me" target="_blank" rel="noopener">Show nearest hospitals</a>
+          <a href="https://www.google.com/maps/search/emergency+room+near+me" target="_blank" rel="noopener">Emergency rooms only</a>
+        </div>
+        <div class="card">
+          <h3 style="margin:0">Medical shops</h3>
+          <p style="margin:0">Pharmacies for dressings, antiseptic, and ointments.</p>
+          <a class="btn" href="https://www.google.com/maps/search/medical+store+near+me" target="_blank" rel="noopener">Show nearest medical shops</a>
+          <a href="https://www.google.com/maps/search/24+hour+pharmacy+near+me" target="_blank" rel="noopener">Open 24 hours</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <strong>Doctor AI</strong> gives general first aid information only. It is not a diagnosis and does not replace a doctor. If you are unsure or the injury is serious, get medical help immediately.
+  </div>
+</footer>
+
+
+<script src="script.js"></script>
+</body>
+</html>
